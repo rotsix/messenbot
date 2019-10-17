@@ -14,7 +14,7 @@ from fbchat import Client
 from fbchat.models import Message, ThreadType
 
 
-def export_cookies(cookies_location):
+def write_cookies(cookies_location):
     mail = input("mail: ")
     password = getpass("password: ")
     client = Client(mail, password)
@@ -112,6 +112,9 @@ def main():
 
     if args.cookies:
         session_cookies = read_cookies(args.cookies)
+        if not session_cookies:
+            print("couldn't parse cookies, aborting")
+            exit(1)
         client = MessenBot("mark", "zuckerberg", session_cookies=session_cookies)
     else:
         mail = input("mail: ")
